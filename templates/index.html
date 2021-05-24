@@ -1,0 +1,106 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <title>DonetReceive</title>
+</head>
+
+<body>
+    <div class="col-12 text-right" id="logout_button">
+        <a href="/logout" class="btn btn-danger ml-auto">Log out </a>
+    </div>
+
+    <div class="container">
+        <h1>Welcome <label style="color:red"> {{request.user.first_name}}</label></h1>
+        {% if donatorinfo %}
+        <form action="/update_donator/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value={{donator.id}} name="id">
+            <div class="form-group">
+                <div class="form-label-group">
+                    <label class="form-label" for="default-01">Blood type: </label>
+                </div>
+                <select name="blood_group" class="form-control" value="{{donator.blood_group}}" id="">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="form-label-group">
+                    <label class="form-label" for="default-01">Information: </label>
+
+                </div>
+                <input type="text" name="information" value="{{donator.information}}" placeholder="information"
+                    class="form-control" required>
+            </div>
+            <div class="form-group">
+                <div class="form-label-group">
+                    <label class="form-label" for="default-01">Donate Amount: </label>
+
+                </div>
+                <input type="number" name="donate_amount" value="{{donator.donate_amount}}" placeholder="Liters"
+                    class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-active btn-success">Update</button>
+            <a href="/delete/{{donator.id}}/" class="btn btn-active btn-success">Cancel Donate</a>
+        </form>
+        {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="form-label-group">
+                    <label class="form-label" for="default-01">Blood type: </label>
+
+                </div>
+                <select name="blood_group" class="form-control" id="">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="form-label-group">
+                    <label class="form-label" for="default-01">Information: </label>
+
+                </div>
+                <input type="text" name="information" placeholder="information" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <div class="form-label-group">
+                    <label class="form-label" for="default-01">Donate Amount: </label>
+
+                </div>
+                <input type="number" name="donate_amount" placeholder="Liters" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-active btn-success">Donate</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
